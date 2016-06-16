@@ -56,7 +56,10 @@ dependencies {
     compile('org.springframework.data:spring-data-rest-hal-browser:2.4.1.RELEASE')
     runtime group: 'com.h2database', name: 'h2', version: '1.4.192'
     compile group: 'com.h2database', name: 'h2', version: '1.4.192'
+    // Test APIs
     testCompile("junit:junit")
+    testCompile("org.assertj:assertj-core:1.7.0")
+    testCompile("org.springframework.boot:spring-boot-starter-test")
 }
 
 task wrapper(type: Wrapper) {
