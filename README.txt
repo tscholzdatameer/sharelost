@@ -33,6 +33,11 @@ http://localhost:8083/users/search/findByName?name=Daniel
 http://localhost:8083/users/search/findByName?name=Jörg
 http://localhost:8083/users/search/existsAtAll
 
+* query database with paging & sorting
+http://localhost:8083/users?page=1&size=2
+http://localhost:8083/users?page=2&size=2&sort=name,asc
+http://localhost:8083/users?page=2&size=2&sort=name,desc
+
 
 * review database entries
 http://localhost:8083/h2/
