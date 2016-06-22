@@ -28,10 +28,17 @@ http://localhost:8083/profile/users
 http://localhost:8083/browser/
 -> in text field explorer enter e.g., /users and click Go!
 
+* query database:
+http://localhost:8083/users/search/findByName?name=Daniel
+http://localhost:8083/users/search/findByName?name=Jörg
+http://localhost:8083/users/search/existsAtAll
+
+
 * review database entries
 http://localhost:8083/h2/
 -> change JDBC URL to: jdbc:h2:file:./build/sharelost;MODE=MySQL;DB_CLOSE_DELAY=-1
 -> remove the user name 'sa'
+
 
 * review runtime metrics
 http://localhost:8083/metrics/
