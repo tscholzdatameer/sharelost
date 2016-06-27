@@ -4,6 +4,7 @@ import javax.annotation.PostConstruct;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.sharelost.item.ItemRepository;
 import org.sharelost.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
@@ -18,15 +19,17 @@ public class DataInjector {
 	protected DatabasePopulator _databasePopulator;
 
 	private UserRepository _userRepository;
+	private ItemRepository _itemRepository;
 	@Autowired
-	public DataInjector(UserRepository userRepository, DatabasePopulator databasePopulator) {
+	public DataInjector(UserRepository userRepository, ItemRepository itemRepository, DatabasePopulator databasePopulator) {
 		_userRepository = userRepository;
+		_itemRepository = itemRepository;
 		_databasePopulator = databasePopulator;
 	}
 
 	@PostConstruct
 	private void inject() {
-		Runnable usersInjector = new Runnable() {
+		Runnable injector = new Runnable() {
 
 			@Override
 			public void run() {
@@ -37,9 +40,17 @@ public class DataInjector {
 				} else {
 					LOG.info("No entities will be injected.");
 				}
+				
+				if (!_itemRepository.existsAtAll()) {
+					_databasePopulator.insertItems();
+					Long itemsAmount = _itemRepository.count();
+					LOG.info("Finished injecting " + itemsAmount + " items ");
+				} else {
+					LOG.info("No entities will be injected.");
+				}
 			}
 		};
-		Thread thread = new Thread(usersInjector);
+		Thread thread = new Thread(injector);
 		thread.start();
 	}
 }

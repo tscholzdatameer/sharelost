@@ -1,5 +1,7 @@
 package org.sharelost.user;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,17 +26,18 @@ public class User implements Identifiable<Long> {
     @Column(name = "_userId")
     private Long id;
     
-    @Column(unique = true, name = "_name")
+    @Column(name = "_name")
     private String name;
 
-    @Column(name = "_emailAddress", length = 500)
+    @Column(unique = true, name = "_emailAddress", length = 500)
     private String emailAddress;
 
     @Column(name = "_registrationDate")
-    private Long registrationDate;
+    private Date registrationDate;
 
     @Override
     public String toString() {
         return "'" + name + "'(" + emailAddress + ")[" + id + "]";
     }
+
 }
