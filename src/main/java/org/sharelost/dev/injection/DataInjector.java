@@ -4,7 +4,6 @@ import javax.annotation.PostConstruct;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.sharelost.user.AdminRepository;
 import org.sharelost.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
@@ -19,12 +18,9 @@ public class DataInjector {
 	protected DatabasePopulator _databasePopulator;
 
 	private UserRepository _userRepository;
-	private AdminRepository _adminRepository;
 	@Autowired
-	public DataInjector(UserRepository userRepository, AdminRepository adminRepository,
-			DatabasePopulator databasePopulator) {
+	public DataInjector(UserRepository userRepository, DatabasePopulator databasePopulator) {
 		_userRepository = userRepository;
-		_adminRepository = adminRepository;
 		_databasePopulator = databasePopulator;
 	}
 
@@ -35,11 +31,9 @@ public class DataInjector {
 			@Override
 			public void run() {
 				if (!_userRepository.existsAtAll()) {
-					_databasePopulator.insertUsers().insertAdmin();
+					_databasePopulator.insertUsers();
 					Long usersAmount = _userRepository.count();
 					LOG.info("Finished injecting " + usersAmount + " users ");
-					Long adminsAmount = _adminRepository.count();
-					LOG.info("Finished injecting " + adminsAmount + " admins ");
 				} else {
 					LOG.info("No entities will be injected.");
 				}
