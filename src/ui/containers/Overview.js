@@ -1,15 +1,24 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+import { Card, CardTitle, CardText, CardActions } from 'react-mdl/lib/Card';
+import Grid, { Cell } from 'react-mdl/lib/Grid';
+
 import { fetchTopItems } from '../actions';
 
 function renderItem(item) {
   return (
-      <div key={item.id}>
-        <h1>{ item.get('name') } <i>Value: { item.get('value') }% </i></h1>
-        <p>{ item.get('description') }</p>
-        <Link to={`/detail/${ item.id }`}>Show me</Link>
-      </div>
+      <Cell col={4} key={item.id}>
+        <Card shadow={1} key={item.id} style={{width: '320px', height: '320px', margin: 'auto'}}>
+          <CardTitle style={{ background: `url(https://unsplash.it/320/220?image=${item.id}) no-repeat center/cover` }} expand>{item.get('name')}</CardTitle>
+          <CardText>
+            {item.get('description') }
+          </CardText>
+          <CardActions border>
+            <Link to={`/detail/${ item.id }`}>Show me</Link>
+          </CardActions>
+        </Card>
+      </Cell>
     );
 }
 
@@ -26,9 +35,9 @@ class Overview extends Component {
   render() {
     const { items } = this.props;
     return (
-        <div>
+        <Grid>
           { items.map(item => renderItem(item)) }
-        </div>
+        </Grid>
       );
   }
 }

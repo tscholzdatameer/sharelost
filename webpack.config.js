@@ -31,6 +31,13 @@ function generateConfig() {
         }]
     };
 
+    const lessLoader = {
+      test: /\.less/,
+      loader: 'style!css!less'
+    };
+
+    config.module.loaders.push(lessLoader);
+
     config.plugins = [
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': `"${process.env.NODE_ENV}"`
