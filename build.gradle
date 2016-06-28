@@ -50,9 +50,9 @@ dependencies {
     compile group: 'org.projectlombok', name: 'lombok', version: '1.16.8'
     compile group: 'com.google.code.findbugs', name: 'findbugs', version: '3.0.1'
     //end::lombok[]
-    
+
     compile group: 'com.google.guava', name: 'guava', version: '19.0'
-	compile ("com.github.javafaker:javafaker:0.10")
+    compile ("com.github.javafaker:javafaker:0.10")
     compile('org.springframework.data:spring-data-rest-hal-browser:2.4.1.RELEASE')
     runtime group: 'com.h2database', name: 'h2', version: '1.4.192'
     compile group: 'com.h2database', name: 'h2', version: '1.4.192'
