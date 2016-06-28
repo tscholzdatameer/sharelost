@@ -4,5 +4,6 @@
 .project
 .classpath
 .settings
+.lvimrc
 .DS_Store
-node_modules
+**/node_modules
