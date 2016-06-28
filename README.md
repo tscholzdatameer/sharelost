@@ -1,3 +1,5 @@
+[![Travis](https://img.shields.io/travis/tscholzdatameer/sharelost.svg?maxAge=2592000&style=flat-square)](https://travis-ci.org/tscholzdatameer/sharelost)
+
 This application is based on
 * gradle
 * spring boot
