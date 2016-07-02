@@ -18,7 +18,7 @@ function generateConfig() {
         'chunkFilename': PRODUCTION ? '[name].[hash].js' : '[name].bundle.js'
     };
 
-    config.devtool = PRODUCTION ? 'source-map' : 'eval';
+    config.devtool = PRODUCTION ? '#source-map' : 'cheap-module-eval-source-map';
 
     config.module = {
         loaders: [{
