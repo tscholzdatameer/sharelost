@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import Grid, { Cell } from 'react-mdl/lib/Grid';
+
 import { fetchItem } from '../actions';
 
 class ItemDetail extends Component {
@@ -15,19 +17,21 @@ class ItemDetail extends Component {
   render() {
     const { item } = this.props;
     return (
-        <div>
-          { (() => {
-            if (item) {
-              return (
-                <div>
-                  <h1>{ item.get('name') } </h1>
-                  <img src={ `https://unsplash.it/200/300?image=${item.id}` } />
-                </div>
-              );
-            }
-            return <p>nothing</p>;
-          })()}
-        </div>
+        <Grid>
+          <Cell offset={1} col={10}>
+            { (() => {
+              if (item) {
+                return (
+                  <div>
+                    <h1>{ item.get('name') } </h1>
+                    <img src={ `https://unsplash.it/200/300?image=${item.id}` } />
+                  </div>
+                );
+              }
+              return <p>nothing</p>;
+            })()}
+          </Cell>
+        </Grid>
       );
   }
 }

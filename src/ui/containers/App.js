@@ -1,4 +1,6 @@
 import React, { Component, PropTypes } from 'react';
+import Menu from '../components/Menu';
+import { Layout, Content } from 'react-mdl/lib/Layout';
 
 class App extends Component {
   constructor(props) {
@@ -8,9 +10,12 @@ class App extends Component {
   render() {
     const { children } = this.props;
     return (
-      <div>
-        {children}
-      </div>
+      <Layout>
+        <Menu/>
+        <Content>
+          {children}
+        </Content>
+      </Layout>
     );
   }
 }
