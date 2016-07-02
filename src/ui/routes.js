@@ -5,8 +5,8 @@ import Overview from './containers/Overview';
 import ItemDetail from './containers/ItemDetail';
 
 export default (
-  <Route path="/" component={App}>
-    <Route path="/overview" component={Overview} />
-    <Route path="/detail/:id" component={ItemDetail} />
+  <Route path={App.path} component={App}>
+    <Route path={Overview.path} component={Overview} />
+    <Route path={ItemDetail.path} component={ItemDetail} />
   </Route>
 );

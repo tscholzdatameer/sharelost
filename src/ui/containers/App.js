@@ -19,4 +19,6 @@ App.propTypes = {
   children: PropTypes.node
 };
 
+App.path = '/';
+
 export default App;

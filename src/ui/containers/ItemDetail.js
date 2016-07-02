@@ -38,8 +38,9 @@ ItemDetail.propTypes = {
   params: PropTypes.object.isRequired
 };
 
+ItemDetail.path = '/detail/:id';
+
 function mapStateToProps(state) {
-  console.log(state);
   const { selectedItem: { isFetching, item } } = state;
   return {
     isFetching,

@@ -47,6 +47,8 @@ Overview.propTypes = {
   items: PropTypes.array.isRequired
 };
 
+Overview.path = '/overview';
+
 function mapStateToProps(state) {
   const { topItems: { isFetching, items } } = state;
   return {
