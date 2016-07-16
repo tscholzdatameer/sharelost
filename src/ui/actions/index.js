@@ -1,7 +1,31 @@
-import spring from 'spring-data-rest-js';
+import {Item, doAuth } from '../utils';
 
-spring.requestConfig.baseURL = 'http://localhost:8083';
-const Item = spring.extend('items');
+export const REQUEST_TOKEN = 'REQUEST_TOKEN';
+export const RECEIVE_TOKEN = 'RECEIVE_TOKEN';
+
+function requestToken() {
+  return {
+    type: REQUEST_TOKEN
+  };
+}
+
+function receiveToken(token) {
+  return {
+    type: RECEIVE_TOKEN,
+    token
+  };
+}
+
+export function getToken(login, pass) {
+  return dispatch => {
+    dispatch(requestToken());
+    doAuth(login, pass)
+      .then(token => dispatch(receiveToken(token)))
+      .catch(error => {
+        console.log(error);
+      });
+  };
+}
 
 export const REQUEST_ITEMS = 'REQUEST_ITEMS';
 export const RECEIVE_ITEMS = 'RECEIVE_ITEMS';

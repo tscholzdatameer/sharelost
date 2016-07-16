@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 import { Header, Navigation } from 'react-mdl/lib/Layout';
 
 class Menu extends Component {
@@ -10,7 +11,7 @@ class Menu extends Component {
     return (
       <Header title="ShareLost">
         <Navigation>
-          <a href="#">Login</a>
+          <Link to="/login">Login</Link>
         </Navigation>
       </Header>
     );
