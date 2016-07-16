@@ -6,6 +6,7 @@ import Root from './containers/Root';
 import configureStore from './store/configureStore';
 
 import './main.less';
+import 'react-mdl/extra/material';
 const store = configureStore();
 const history = syncHistoryWithStore(browserHistory, store);
 
