@@ -22,7 +22,7 @@ function renderItem(item) {
     );
 }
 
-class Overview extends Component {
+class TopItems extends Component {
   constructor(props) {
     super(props);
   }
@@ -42,12 +42,12 @@ class Overview extends Component {
   }
 }
 
-Overview.propTypes = {
+TopItems.propTypes = {
   dispatch: PropTypes.func.isRequired,
   items: PropTypes.array.isRequired
 };
 
-Overview.path = '/overview';
+TopItems.path = '/top-items';
 
 function mapStateToProps(state) {
   const { topItems: { isFetching, items } } = state;
@@ -57,5 +57,5 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(Overview);
+export default connect(mapStateToProps)(TopItems);
 
