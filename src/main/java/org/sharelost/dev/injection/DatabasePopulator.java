@@ -69,6 +69,7 @@ public class DatabasePopulator {
 			item.setWillingToPay(willingToPay);
 			item.setValue(value);
 			item.setDescription(faker.lorem().paragraph());
+			item.setCategory(faker.commerce().material());
 			_itemRepository.save(item);
 		}
 		return this;

@@ -51,5 +51,8 @@ public class Item implements Identifiable<Long> {
     
     @Column(name = "_value")
     private Float value;
+    
+    @Column(name = "_category")
+    private String category;
 
 }
