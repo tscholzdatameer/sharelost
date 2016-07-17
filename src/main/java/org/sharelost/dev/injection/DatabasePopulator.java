@@ -44,8 +44,9 @@ public class DatabasePopulator {
 			String lastName = faker.name().lastName();
 			User user = new User();
 			user.setName(firstName);
+			user.setPassword(faker.internet().password());
 			user.setRegistrationDate(faker.date().past(100, TimeUnit.DAYS));
-			user.setEmailAddress(faker.internet().emailAddress(firstName.toLowerCase() + "." + lastName.toLowerCase()));
+			user.setEmail(faker.internet().emailAddress(firstName.toLowerCase() + "." + lastName.toLowerCase()));
 			_userRepository.save(user);
 		}
 		return this;
