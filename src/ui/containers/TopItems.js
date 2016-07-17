@@ -1,30 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
-import { Card, CardTitle, CardText, CardActions } from 'react-mdl/lib/Card';
 import Grid, { Cell } from 'react-mdl/lib/Grid';
-
+import ItemCardSmall from '../components/ItemCardSmall';
 import { fetchTopItems } from '../actions';
-
-function renderItem(item) {
-  return (
-      <Cell col={4} key={item.id}>
-        <Card shadow={1} key={item.id} style={{width: '320px', height: '320px', margin: 'auto'}}>
-          <CardTitle style={{ background: `url(https://unsplash.it/320/220?image=${item.id}) no-repeat center/cover` }} expand>{item.get('name')}</CardTitle>
-          <CardText>
-            {item.get('description') }
-          </CardText>
-          <CardActions border>
-            <Link to={`/detail/${ item.id }`}>Show me</Link>
-          </CardActions>
-        </Card>
-      </Cell>
-    );
-}
 
 class TopItems extends Component {
   constructor(props) {
     super(props);
+    this.navigateToDetail = this.navigateToDetail.bind(this);
   }
 
   componentDidMount() {
@@ -32,12 +15,23 @@ class TopItems extends Component {
     dispatch(fetchTopItems());
   }
 
+  navigateToDetail(id) {
+    this.context.router.push(`detail/${id}`);
+  }
+
   render() {
     const { items } = this.props;
     return (
-        <Grid>
-          { items.map(item => renderItem(item)) }
-        </Grid>
+        <div>
+          <Grid>
+            <Cell col={12}>
+              <h3>Top 10 Items by Value</h3>
+            </Cell>
+          </Grid>
+          <Grid>
+            { items.map(item => <ItemCardSmall item={item} key={item.id} onShowDetailClick={ this.navigateToDetail }/>) }
+          </Grid>
+      </div>
       );
   }
 }
@@ -45,6 +39,10 @@ class TopItems extends Component {
 TopItems.propTypes = {
   dispatch: PropTypes.func.isRequired,
   items: PropTypes.array.isRequired
+};
+
+TopItems.contextTypes = {
+  router: PropTypes.object
 };
 
 TopItems.path = '/top-items';
@@ -58,4 +56,3 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps)(TopItems);
-
