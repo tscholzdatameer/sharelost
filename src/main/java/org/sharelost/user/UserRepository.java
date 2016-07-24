@@ -8,6 +8,8 @@ public interface UserRepository extends PagingAndSortingRepository<User, Long> {
 
 	@Query
 	public User findByName(@Param("name") String name);
+	
+	public User findByEmail(@Param("email") String email);
 
 	@Query(value = "SELECT count(id) > 0 FROM User")
 	public boolean existsAtAll();

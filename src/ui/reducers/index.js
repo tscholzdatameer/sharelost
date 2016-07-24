@@ -42,6 +42,25 @@ function allItems(state = { isFetching: false, items: [] }, action) {
   }
 }
 
+function itemsByCategory(state = { isFetching: false, items: [] }, action) {
+  switch (action.type) {
+  case ActionTypes.REQUEST_ITEMS_BY_CATEGORY:
+    return Object.assign(
+        {},
+        state,
+        { isFetching: true }
+    );
+  case ActionTypes.RECEIVE_ITEMS_BY_CATEGORY:
+    return Object.assign(
+        {},
+        state,
+        { isFetching: false, items: action.items }
+    );
+  default:
+    return state;
+  }
+}
+
 function topItems(state = { isFetching: false, items: [] }, action) {
   switch (action.type) {
   case ActionTypes.REQUEST_TOP_ITEMS:
@@ -84,6 +103,7 @@ const rootReducer = combineReducers({
   selectedItem,
   topItems,
   allItems,
+  itemsByCategory,
   auth,
   routing
 });

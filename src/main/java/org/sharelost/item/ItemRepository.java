@@ -14,6 +14,10 @@ public interface ItemRepository extends PagingAndSortingRepository<Item, Long> {
 
 	public List <Item> findTop10ByOrderByValueDesc();
 	
+	public List <Item> findByOrderByPublishDateDesc();
+	
+	public List <Item> findByOrderByValueDesc();
+	
 	/* [TODO] get an "PersistentEntity must not be null!" exception
 	@Query(value = "SELECT DISTINCT _category FROM ITEM", nativeQuery = true)
 	public List <String> findCategories();

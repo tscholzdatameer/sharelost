@@ -5,6 +5,10 @@ import Grid, { Cell } from 'react-mdl/lib/Grid';
 import { fetchItem } from '../actions';
 
 class ItemDetail extends Component {
+  static getPath() {
+    return '/item/:id';
+  }
+
   constructor(props) {
     super(props);
   }
@@ -42,8 +46,6 @@ ItemDetail.propTypes = {
   params: PropTypes.object.isRequired
 };
 
-ItemDetail.path = '/detail/:id';
-
 function mapStateToProps(state) {
   const { selectedItem: { isFetching, item } } = state;
   return {
@@ -53,4 +55,3 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps)(ItemDetail);
-

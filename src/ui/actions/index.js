@@ -86,6 +86,42 @@ export function fetchItems() {
   };
 }
 
+export const REQUEST_ITEMS_BY_CATEGORY = 'REQUEST_ITEMS_BY_CATEGORY';
+export const RECEIVE_ITEMS_BY_CATEGORY = 'RECEIVE_ITEMS_BY_CATEGORY';
+
+function requestItemsByCategory() {
+  return {
+    type: REQUEST_ITEMS_BY_CATEGORY
+  };
+}
+
+function receiveItemsByCategory(items) {
+  return {
+    type: RECEIVE_ITEMS_BY_CATEGORY,
+    items
+  };
+}
+
+export function fetchItemsByCategory(category) {
+  let findQuery;
+  switch (category) {
+    case 'value':
+      findQuery = 'findByOrderByValueDesc';
+      break;
+    case 'date':
+      findQuery = 'findByOrderByPublishDateDesc';
+      break;
+    default:
+      findQuery = 'findByOrderByPublishDateDesc';
+  }
+
+  return dispatch => {
+    dispatch(requestItemsByCategory());
+    Item.search(findQuery)
+      .then(items => dispatch(receiveItemsByCategory(items)));
+  };
+}
+
 export const REQUEST_TOP_ITEMS = 'REQUEST_TOP_ITEMS';
 export const RECEIVE_TOP_ITEMS = 'RECEIVE_TOP_ITEMS';
 

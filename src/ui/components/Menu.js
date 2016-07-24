@@ -4,7 +4,12 @@ import { Link } from 'react-router';
 import { Header, Navigation } from 'react-mdl/lib/Layout';
 import Menu, { MenuItem } from 'react-mdl/lib/Menu';
 import IconButton from 'react-mdl/lib/IconButton';
+import map from 'lodash/map';
 
+const LINKS = {
+  'Items By Value': '/items/by/value',
+  'Items By Date': '/items/by/date'
+};
 
 class MainMenu extends Component {
   constructor(props) {
@@ -28,10 +33,21 @@ class MainMenu extends Component {
     );
   }
 
+  getLinks() {
+    const { authenticated } = this.props;
+
+    if (!authenticated) {
+      return null;
+    }
+
+    return map(LINKS, (link, label) => <Link to={link} key={link}>{ label }</Link>);
+  }
+
   render() {
     return (
       <Header title="ShareLost">
         <Navigation>
+          { this.getLinks() }
           { this.getLoginMenuEntry() }
         </Navigation>
       </Header>

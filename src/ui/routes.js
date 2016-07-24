@@ -5,6 +5,7 @@ import App from './containers/App';
 import Login from './containers/Login';
 import Register from './containers/Register';
 import TopItems from './containers/TopItems';
+import ItemList from './containers/ItemList';
 import ItemDetail from './containers/ItemDetail';
 
 function requireAuth(nextState, replace) {
@@ -22,7 +23,8 @@ export default (
     <Route path={Register.path} component={Register} />
     <Route path='/auth' onEnter={requireAuth}>
       <Route path={TopItems.path} component={TopItems} />
-      <Route path={ItemDetail.path} component={ItemDetail} />
+      <Route path={ItemList.getPath()} component={ItemList} />
+      <Route path={ItemDetail.getPath()} component={ItemDetail} />
     </Route>
   </Route>
 );
