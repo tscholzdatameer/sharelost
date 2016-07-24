@@ -38,11 +38,18 @@ public class DatabasePopulator {
 
 	public DatabasePopulator insertUsers() {
 		long timeNow = System.currentTimeMillis();
-
-		for (int i = 0; i < 50; i++) {
+		
+		User user = new User();
+		user.setName("admin");
+		user.setPassword("admin");
+		user.setRegistrationDate(faker.date().past(100, TimeUnit.DAYS));
+		user.setEmail("admin@localhost.local");
+		_userRepository.save(user);
+		
+		for (int i = 1; i < 50; i++) {
 			String firstName = faker.name().firstName();
 			String lastName = faker.name().lastName();
-			User user = new User();
+			user = new User();
 			user.setName(firstName);
 			user.setPassword(faker.internet().password());
 			user.setRegistrationDate(faker.date().past(100, TimeUnit.DAYS));
