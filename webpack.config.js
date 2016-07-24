@@ -1,21 +1,30 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const _ = require('lodash');
+const configuration = require('./package.json');
+
+const dependencies = configuration.dependencies;
 
 const PRODUCTION = process.env.NODE_ENV === 'production';
 const ROOT_PATH = path.resolve(__dirname, 'src', 'ui');
+const FILE_NAME_PATTERN = PRODUCTION ? '[name].[hash].js' : '[name].bundle.js';
 
 function generateConfig() {
     const config = {
         'modulesDirectories': 'node_modules'
     };
-    config.entry = path.resolve(ROOT_PATH, 'index.js');
+    config.entry = {
+      'app': path.resolve(ROOT_PATH, 'index.js'),
+      'vendor': _.keys(dependencies)
+    };
 
     config.output = {
         'path': path.resolve(__dirname, 'build', 'ui'),
         'publicPath': PRODUCTION ? '/' : 'http://localhost:8080/',
         'filename': PRODUCTION ? '[name].[hash].js' : '[name].bundle.js',
-        'chunkFilename': PRODUCTION ? '[name].[hash].js' : '[name].bundle.js'
+        'chunkFilename': FILE_NAME_PATTERN
     };
 
     config.devtool = PRODUCTION ? '#source-map' : 'cheap-module-eval-source-map';
@@ -31,12 +40,17 @@ function generateConfig() {
         }]
     };
 
-    const lessLoader = {
-      test: /\.less/,
-      loader: 'style!css!less'
-    };
-
-    config.module.loaders.push(lessLoader);
+    if (!PRODUCTION) {
+      config.module.loaders.push({
+        test: /\.less/,
+        loader: 'style!css!less'
+      });
+    } else {
+      config.module.loaders.push({
+        test: /\.less/,
+        loader: ExtractTextPlugin.extract('style-loader', 'css-loader', 'less-loader')
+      });
+    }
 
     config.plugins = [
         new webpack.DefinePlugin({
@@ -45,9 +59,19 @@ function generateConfig() {
         new HtmlWebpackPlugin({
             'template': path.resolve(ROOT_PATH, 'index.html'),
             'inject': 'body',
-            'minify': PRODUCTION
-        })
+            'minify': false
+        }),
+        new webpack.optimize.CommonsChunkPlugin('vendor', FILE_NAME_PATTERN)
     ];
+
+    if (PRODUCTION) {
+      config.plugins.push(new webpack.optimize.OccurrenceOrderPlugin());
+      config.plugins.push(new webpack.optimize.DedupePlugin());
+      config.plugins.push(new webpack.optimize.UglifyJsPlugin({
+        'comments': false
+      }));
+      config.plugins.push(new ExtractTextPlugin('styles.[hash].css'));
+    }
 
     config.devServer = {
         'contentBase': path.resolve(__dirname, 'build', 'ui'),

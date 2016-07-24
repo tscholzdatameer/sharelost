@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "description": "",
   "scripts": {
-    "dev": "NODE_ENV=development webpack-dev-server --config webpack.config.js --hot --inline"
+    "prebuild": "rimraf ./build/ui",
+    "dev": "NODE_ENV=development webpack-dev-server --config webpack.config.js --hot --inline",
+    "build": "NODE_ENV=production webpack --config webpack.config.js"
   },
   "license": "MIT",
   "bugs": {},
@@ -26,12 +28,14 @@
     "babel-preset-react": "^6.11.1",
     "babel-preset-stage-2": "^6.11.0",
     "css-loader": "^0.23.1",
+    "extract-text-webpack-plugin": "^1.0.1",
     "html-webpack-plugin": "^2.22.0",
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
     "redux-devtools": "^3.3.1",
     "redux-devtools-dock-monitor": "^1.1.1",
     "redux-devtools-log-monitor": "^1.0.11",
+    "rimraf": "^2.5.4",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1"
