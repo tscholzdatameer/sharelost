@@ -2,7 +2,7 @@ import * as ActionTypes from '../actions';
 import { routerReducer as routing } from 'react-router-redux';
 import { combineReducers } from 'redux';
 
-function auth(state = { token: null, authenticated: false, timestamp: new Date().getTime() }, action) {
+function auth(state = { token: null, authenticated: false, timestamp: new Date().getTime(), user: {} }, action) {
   switch (action.type) {
   case ActionTypes.RECEIVE_TOKEN:
     return Object.assign(
@@ -11,10 +11,13 @@ function auth(state = { token: null, authenticated: false, timestamp: new Date()
       {
         token: action.token,
         authenticated: true,
-        timestamp: new Date().getTime()
+        timestamp: new Date().getTime(),
+        user: action.user
       }
     );
   case ActionTypes.REQUEST_TOKEN:
+  case ActionTypes.REQUEST_REGISTRATION:
+  case ActionTypes.RECEIVE_REGISTRATION:
   default:
     return state;
   }

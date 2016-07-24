@@ -1,42 +1,39 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { register } from '../actions';
 import { Link, withRouter } from 'react-router';
-import { getToken } from '../actions';
-import { Card, CardTitle, CardActions } from 'react-mdl/lib/Card';
 import Grid, { Cell } from 'react-mdl/lib/Grid';
+import { Card, CardTitle, CardActions } from 'react-mdl/lib/Card';
 import TextField from 'react-mdl/lib/Textfield';
 import Button from 'react-mdl/lib/Button';
 
-class Login extends Component {
+class Register extends Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
-    const { authenticated, location, router } = nextProps;
+    const { authenticated, router } = nextProps;
 
     if(authenticated) {
-      if (location.state && location.state.nextPathname) {
-        router.replace(location.state.nextPathname);
-      } else {
-        router.replace('/top-items');
-      }
+      router.replace('/top-items');
     }
-
   }
 
   handleSubmit(event) {
     event.preventDefault();
-
-    const { email, pass } = this.refs;
+    const { name, email, password } = this.refs;
     const { dispatch } = this.props;
 
-    dispatch(getToken(email.refs.input.value, pass.refs.input.value));
+    dispatch(register({
+      email: email.refs.input.value,
+      name: name.refs.input.value,
+      password: password.refs.input.value
+    }));
   }
 
   render() {
-
     return (
       <form autoComplete="off" onSubmit={ this.handleSubmit }>
         <Grid>
@@ -44,19 +41,20 @@ class Login extends Component {
             <Card shadow={1} style={{ width: '100%' }}>
               <CardTitle>
                 <Grid>
-                    <TextField label="Email" ref="email" floatingLabel autoComplete="share-lost-email"/>
-                    <TextField label="Password" ref="pass" type="password" floatingLabel autoComplete="off"/>
+                    <TextField label="Name" ref="name" floatingLabel required/>
+                    <TextField label="Email" ref="email" floatingLabel required />
+                    <TextField label="Password" ref="password" type="password" floatingLabel required/>
                 </Grid>
               </CardTitle>
               <CardActions>
-                  <Button colored >Login</Button>
+                  <Button colored >Register</Button>
               </CardActions>
             </Card>
           </Cell>
         </Grid>
         <Grid>
           <Cell col={4} offset={4}>
-            Not a member? Register <Link to="/register">here</Link>.
+            Already a member? Login <Link to="/login">here</Link>.
           </Cell>
         </Grid>
       </form>
@@ -64,11 +62,10 @@ class Login extends Component {
   }
 }
 
-Login.path = '/login';
+Register.path = '/register';
 
-Login.propTypes = {
+Register.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  location: PropTypes.object.isRequired,
   router: PropTypes.object.isRequired,
   authenticated: PropTypes.bool.isRequired
 };
@@ -80,5 +77,5 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(withRouter(Login));
+export default connect(mapStateToProps)(withRouter(Register));
 
