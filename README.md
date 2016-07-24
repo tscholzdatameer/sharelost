@@ -3,6 +3,8 @@
 This application is based on
 * gradle
 * spring boot
+* react
+* webpack
 
 This application is intended to be a SPA.
 
@@ -16,6 +18,19 @@ java -jar build/libs/sharelost-0.1.0.jar
 * use application by
 http://localhost:8083/
 http://localhost:8083/users/
+
+
+* setup UI
+`npm install`
+
+* start UI development server
+`npm run dev`
+
+* use application
+`http://localhost:8080`
+
+* development login
+`admin : admin`
 
 Information of Engineers
 ==============================
