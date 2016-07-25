@@ -1,13 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import Grid from 'react-mdl/lib/Grid';
+import isEqual from 'lodash/isEqual';
 
 import ItemCardSmall from '../components/ItemCardSmall';
 import { fetchItemsByCategory } from '../actions';
 
 class ItemList extends Component {
   static getPath() {
-    return '/items/by/:category';
+    return '/items/by/:category(/:additional)/:page/:size/:sort';
   }
 
   constructor(props) {
@@ -17,15 +17,15 @@ class ItemList extends Component {
 
   componentWillMount() {
     const { dispatch, params} = this.props;
-    dispatch(fetchItemsByCategory(params.category));
+    dispatch(fetchItemsByCategory(params));
   }
 
   componentWillReceiveProps(nextProps) {
     const { params, dispatch } = this.props;
     const nextParams = nextProps.params;
 
-    if (params.category !== nextParams.category) {
-      dispatch(fetchItemsByCategory(nextParams.category));
+    if (!isEqual(params, nextParams)) {
+      dispatch(fetchItemsByCategory(nextParams));
     }
   }
 
@@ -36,10 +36,8 @@ class ItemList extends Component {
   render() {
     const { items } = this.props;
     return (
-        <div>
-          <Grid>
-            { items.map(item => <ItemCardSmall item={item} key={item.id} onShowDetailClick={ this.navigateToDetail }/>) }
-          </Grid>
+      <div className="row">
+        { items.map(item => <ItemCardSmall item={item} key={item.id} onShowDetailClick={ this.navigateToDetail }/>) }
       </div>
     );
   }

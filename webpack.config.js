@@ -3,9 +3,6 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const _ = require('lodash');
-const configuration = require('./package.json');
-
-const dependencies = configuration.dependencies;
 
 const PRODUCTION = process.env.NODE_ENV === 'production';
 const ROOT_PATH = path.resolve(__dirname, 'src', 'ui');
@@ -17,7 +14,17 @@ function generateConfig() {
     };
     config.entry = {
       'app': path.resolve(ROOT_PATH, 'index.js'),
-      'vendor': _.keys(dependencies)
+      'vendor': [
+        'react',
+        'react-dom',
+        'react-redux',
+        'react-router',
+        'react-router-redux',
+        'react-tap-event-plugin',
+        'redux',
+        'redux-thunk',
+        'spring-data-rest-js'
+      ]
     };
 
     config.output = {
@@ -32,11 +39,8 @@ function generateConfig() {
     config.module = {
         loaders: [{
             'test': /\.js$/,
-            'loader': 'babel',
-            'exclude': /node_modules/,
-            'query': {
-                'presets': ['es2015', 'react', 'stage-2']
-            }
+            'loaders': PRODUCTION ? ['babel-loader'] : ['react-hot', 'babel-loader'],
+            'exclude': /node_modules/
         }]
     };
 
@@ -71,6 +75,8 @@ function generateConfig() {
         'comments': false
       }));
       config.plugins.push(new ExtractTextPlugin('styles.[hash].css'));
+    } else {
+      config.plugins.push(new webpack.HotModuleReplacementPlugin());
     }
 
     config.devServer = {

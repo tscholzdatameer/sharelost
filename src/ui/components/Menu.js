@@ -1,63 +1,71 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import { Header, Navigation } from 'react-mdl/lib/Layout';
-import Menu, { MenuItem } from 'react-mdl/lib/Menu';
-import IconButton from 'react-mdl/lib/IconButton';
-import map from 'lodash/map';
-
-const LINKS = {
-  'Items By Value': '/items/by/value',
-  'Items By Date': '/items/by/date'
-};
+import AppBar from 'material-ui/AppBar';
+import IconButton from 'material-ui/IconButton';
+import FlatButton from 'material-ui/FlatButton';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+import FontIcon from 'material-ui/FontIcon';
+import Divider from 'material-ui/Divider';
 
 class MainMenu extends Component {
   constructor(props) {
     super(props);
+    this.handleMenuClick = this.handleMenuClick.bind(this);
+  }
+
+  handleMenuClick(event, child) {
+    const { router } = this.context;
+    router.push(child.props.value);
   }
 
   getLoginMenuEntry() {
-    const { authenticated } = this.props;
+    const { authenticated, user } = this.props;
 
     if (!authenticated) {
-      return <Link to="/login">Login</Link>;
+      return <FlatButton label="Login" containerElement={ <Link to="/login" /> } />;
     }
 
     return (
-      <div>
-        <IconButton name="more_vert" id="menu_dropdown" />
-        <Menu target="menu_dropdown" align="right">
-          <MenuItem><Link to="/logout">Logout</Link></MenuItem>
-        </Menu>
-      </div>
+      <IconMenu
+        iconButtonElement={
+          <IconButton><FontIcon className="material-icons">more_vert</FontIcon></IconButton>
+        }
+        onItemTouchTap={ this.handleMenuClick }
+        targetOrigin={{horizontal: 'right', vertical: 'top'}}
+        anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+      >
+        <MenuItem primaryText="Top Items" value="/items/by/value/0/20/desc" />
+        <MenuItem primaryText="Latest Items" value="/items/by/date/0/20/desc" />
+        <MenuItem primaryText="My Items" value={`/items/by/userId/${user.id}/0/20/desc`} />
+        <Divider />
+        <MenuItem primaryText="Help" />
+        <MenuItem primaryText="Sign out" value="/logout" />
+      </IconMenu>
     );
-  }
-
-  getLinks() {
-    const { authenticated } = this.props;
-
-    if (!authenticated) {
-      return null;
-    }
-
-    return map(LINKS, (link, label) => <Link to={link} key={link}>{ label }</Link>);
   }
 
   render() {
     return (
-      <Header title="ShareLost">
-        <Navigation>
-          { this.getLinks() }
-          { this.getLoginMenuEntry() }
-        </Navigation>
-      </Header>
+      <AppBar
+        style={{ 'position': 'fixed' }}
+        title="ShareLost"
+        showMenuIconButton={ false }
+        iconElementRight={ this.getLoginMenuEntry() }
+      />
     );
   }
 }
 
+MainMenu.contextTypes = {
+  router: PropTypes.object
+};
+
 MainMenu.propTypes = {
   authenticated: PropTypes.bool.isRequired,
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
+  dispatch: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {

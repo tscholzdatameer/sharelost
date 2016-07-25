@@ -2,10 +2,10 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router';
 import { getToken } from '../actions';
-import { Card, CardTitle, CardActions } from 'react-mdl/lib/Card';
-import Grid, { Cell } from 'react-mdl/lib/Grid';
-import TextField from 'react-mdl/lib/Textfield';
-import Button from 'react-mdl/lib/Button';
+
+import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
 
 class Login extends Component {
   constructor(props) {
@@ -20,46 +20,35 @@ class Login extends Component {
       if (location.state && location.state.nextPathname) {
         router.replace(location.state.nextPathname);
       } else {
-        router.replace('/top-items');
+        router.replace('/items/by/value/0/20/desc');
       }
     }
 
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
-
+  handleSubmit() {
     const { email, pass } = this.refs;
     const { dispatch } = this.props;
 
-    dispatch(getToken(email.refs.input.value, pass.refs.input.value));
+    dispatch(getToken(email.input.value, pass.input.value));
   }
 
   render() {
 
     return (
-      <form autoComplete="off" onSubmit={ this.handleSubmit }>
-        <Grid>
-          <Cell col={4} offset={4} >
-            <Card shadow={1} style={{ width: '100%' }}>
-              <CardTitle>
-                <Grid>
-                    <TextField label="Email" ref="email" floatingLabel autoComplete="share-lost-email"/>
-                    <TextField label="Password" ref="pass" type="password" floatingLabel autoComplete="off"/>
-                </Grid>
-              </CardTitle>
-              <CardActions>
-                  <Button colored >Login</Button>
-              </CardActions>
-            </Card>
-          </Cell>
-        </Grid>
-        <Grid>
-          <Cell col={4} offset={4}>
-            Not a member? Register <Link to="/register">here</Link>.
-          </Cell>
-        </Grid>
-      </form>
+      <div className="row center-xs">
+        <Card className="col-xs-12 col-md-4 col-lg-4 form-card">
+          <CardHeader title="Login" />
+          <CardText>
+            <TextField fullWidth={true} floatingLabelText="Email" ref="email" autoComplete="off"/>
+            <TextField fullWidth={true} floatingLabelText="Password" ref="pass" type="password" autoComplete="off"/>
+          </CardText>
+          <CardActions>
+            <RaisedButton label="Login" secondary={true} onTouchTap={this.handleSubmit} />
+            <span>Not a member? Register <Link to="/register">here</Link>.</span>
+          </CardActions>
+        </Card>
+      </div>
     );
   }
 }

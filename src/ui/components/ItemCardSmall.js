@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import { Card, CardTitle, CardText, CardActions } from 'react-mdl/lib/Card';
-import { Cell } from 'react-mdl/lib/Grid';
-import IconButton from 'react-mdl/lib/IconButton';
+import {Card, CardActions, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import FlatButton from 'material-ui/FlatButton';
 
 class ItemCardSmall extends Component {
   constructor(props) {
@@ -11,21 +10,20 @@ class ItemCardSmall extends Component {
   render() {
     const { item, onShowDetailClick } = this.props;
     return (
-        <Cell col={4}>
-          <Card shadow={1} key={item.id} style={{width: '320px', height: '320px', margin: 'auto'}}>
-            <CardTitle style={{ background: `url(https://unsplash.it/320/220?image=${item.id}) no-repeat center/cover` }} expand>
-              {item.get('name')}
-            </CardTitle>
-            <CardText>
-              {item.get('description') }
+        <div className="col-xs-12 col-sm-12 col-md-6 col-lg-3">
+          <Card key={item.id} className="item-card">
+            <CardMedia overlay={<CardTitle title={item.get('name')} />} >
+              <img src={ `https://unsplash.it/320/220?image=${item.id}`} />
+            </CardMedia>
+            <CardText className="item-card__description--size-small">
+                {item.get('description') }
             </CardText>
-            <CardActions style={{display: 'flex', boxSizing: 'border-box', alignItems: 'center'}}>
+            <CardActions>
               Category: { item.get('category') }
-              <div className="mdl-layout-spacer"></div>
-              <IconButton name="open_in_new" onClick={ () => onShowDetailClick(item.id) } colored/>
+              <FlatButton label="Show" onTouchTap={() => onShowDetailClick(item.id)} />
             </CardActions>
           </Card>
-        </Cell>
+        </div>
       );
   }
 }

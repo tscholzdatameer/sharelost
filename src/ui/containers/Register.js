@@ -2,15 +2,15 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { register } from '../actions';
 import { Link, withRouter } from 'react-router';
-import Grid, { Cell } from 'react-mdl/lib/Grid';
-import { Card, CardTitle, CardActions } from 'react-mdl/lib/Card';
-import TextField from 'react-mdl/lib/Textfield';
-import Button from 'react-mdl/lib/Button';
+
+import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
 
 class Register extends Component {
   constructor(props) {
     super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleRegister = this.handleRegister.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -21,43 +21,33 @@ class Register extends Component {
     }
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
+  handleRegister() {
     const { name, email, password } = this.refs;
     const { dispatch } = this.props;
 
     dispatch(register({
-      email: email.refs.input.value,
-      name: name.refs.input.value,
-      password: password.refs.input.value
+      email: email.input.value,
+      name: name.input.value,
+      password: password.input.value
     }));
   }
 
   render() {
     return (
-      <form autoComplete="off" onSubmit={ this.handleSubmit }>
-        <Grid>
-          <Cell col={4} offset={4} >
-            <Card shadow={1} style={{ width: '100%' }}>
-              <CardTitle>
-                <Grid>
-                    <TextField label="Name" ref="name" floatingLabel required/>
-                    <TextField label="Email" ref="email" floatingLabel required />
-                    <TextField label="Password" ref="password" type="password" floatingLabel required/>
-                </Grid>
-              </CardTitle>
-              <CardActions>
-                  <Button colored >Register</Button>
-              </CardActions>
-            </Card>
-          </Cell>
-        </Grid>
-        <Grid>
-          <Cell col={4} offset={4}>
-            Already a member? Login <Link to="/login">here</Link>.
-          </Cell>
-        </Grid>
-      </form>
+      <div className="row center-xs">
+        <Card className="col-xs-12 col-md-4 col-lg-4 form-card">
+          <CardHeader title="Login" />
+          <CardText>
+            <TextField fullWidth={true} floatingLabelText="Name" ref="name" required/>
+            <TextField fullWidth={true} floatingLabelText="Email" ref="email" autoComplete="off"/>
+            <TextField fullWidth={true} floatingLabelText="Password" ref="password" type="password" autoComplete="off"/>
+          </CardText>
+          <CardActions>
+            <RaisedButton label="Register" secondary={true} onTouchTap={this.handleRegister} />
+            <span>Already a member? <Link to="/login">Login</Link></span>
+          </CardActions>
+        </Card>
+      </div>
     );
   }
 }

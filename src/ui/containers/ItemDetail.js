@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import Grid, { Cell } from 'react-mdl/lib/Grid';
 
 import { fetchItem } from '../actions';
 
@@ -21,8 +20,7 @@ class ItemDetail extends Component {
   render() {
     const { item } = this.props;
     return (
-        <Grid>
-          <Cell offset={1} col={10}>
+        <div>
             { (() => {
               if (item) {
                 return (
@@ -34,8 +32,7 @@ class ItemDetail extends Component {
               }
               return <p>nothing</p>;
             })()}
-          </Cell>
-        </Grid>
+        </div>
       );
   }
 }

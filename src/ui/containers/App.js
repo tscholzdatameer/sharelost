@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Menu from '../components/Menu';
-import { Layout, Content } from 'react-mdl/lib/Layout';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 class App extends Component {
   constructor(props) {
@@ -10,12 +10,14 @@ class App extends Component {
   render() {
     const { children } = this.props;
     return (
-      <Layout>
-        <Menu/>
-        <Content>
-          {children}
-        </Content>
-      </Layout>
+      <MuiThemeProvider>
+        <div>
+          <Menu />
+          <div className="container-fluid">
+            {children}
+          </div>
+        </div>
+      </MuiThemeProvider>
     );
   }
 }

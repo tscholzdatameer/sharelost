@@ -1,9 +1,6 @@
 import {Item, User, doAuth, doRegister } from '../utils';
 
 export const ERROR_LOGIN = 'ERROR_LOGIN';
-
-
-
 export const REQUEST_TOKEN = 'REQUEST_TOKEN';
 export const RECEIVE_TOKEN = 'RECEIVE_TOKEN';
 
@@ -102,14 +99,27 @@ function receiveItemsByCategory(items) {
   };
 }
 
-export function fetchItemsByCategory(category) {
+export function fetchItemsByCategory(options = { page: 0, size: 20, sort: 'desc'}) {
+  const { page, size, sort, additional } = options;
   let findQuery;
-  switch (category) {
+  switch (options.category) {
     case 'value':
       findQuery = 'findByOrderByValueDesc';
       break;
     case 'date':
       findQuery = 'findByOrderByPublishDateDesc';
+      break;
+    case 'userId':
+      findQuery = 'findByUserId';
+      options = Object.assign(
+        {},
+        {
+          page,
+          size,
+          sort,
+          userId: additional
+        }
+      );
       break;
     default:
       findQuery = 'findByOrderByPublishDateDesc';
@@ -117,7 +127,7 @@ export function fetchItemsByCategory(category) {
 
   return dispatch => {
     dispatch(requestItemsByCategory());
-    Item.search(findQuery)
+    Item.search(findQuery, options)
       .then(items => dispatch(receiveItemsByCategory(items)));
   };
 }
