@@ -99,12 +99,31 @@ function selectedItem(state = { isFetching: false, item: null }, action) {
   }
 }
 
+function addItemForm(state = { isValid: false, formData: {} }, action) {
+  switch(action.type) {
+  case ActionTypes.ITEM_FORM_SUCCESS:
+    return Object.assign(
+      {},
+      state,
+      { isValid: true, formData: action.formData }
+    );
+  case ActionTypes.ITEM_FORM_ERROR:
+    return Object.assign(
+      {},
+      state,
+      { isValid: false, formData: action.formData }
+    );
+  default:
+    return state;
+  }
+}
 const rootReducer = combineReducers({
   selectedItem,
   topItems,
   allItems,
   itemsByCategory,
   auth,
+  addItemForm,
   routing
 });
 

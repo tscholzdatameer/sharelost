@@ -6,6 +6,7 @@ import Login from './containers/Login';
 import Register from './containers/Register';
 import ItemList from './containers/ItemList';
 import ItemDetail from './containers/ItemDetail';
+import ItemAdd from './containers/ItemAdd';
 
 function requireAuth(nextState, replace) {
   if(!isLoggedIn()) {
@@ -23,6 +24,7 @@ export default (
     <Route path='/auth' onEnter={requireAuth}>
       <Route path={ItemList.getPath()} component={ItemList} />
       <Route path={ItemDetail.getPath()} component={ItemDetail} />
+      <Route path={ItemAdd.getPath()} component={ItemAdd} />
     </Route>
   </Route>
 );

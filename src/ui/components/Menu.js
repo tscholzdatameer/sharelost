@@ -36,9 +36,10 @@ class MainMenu extends Component {
         targetOrigin={{horizontal: 'right', vertical: 'top'}}
         anchorOrigin={{horizontal: 'right', vertical: 'top'}}
       >
+        <MenuItem primaryText="Add Item" value="/items/add" />
+        <MenuItem primaryText="My Items" value={`/items/by/userId/${user.id}/0/20/desc`} />
         <MenuItem primaryText="Top Items" value="/items/by/value/0/20/desc" />
         <MenuItem primaryText="Latest Items" value="/items/by/date/0/20/desc" />
-        <MenuItem primaryText="My Items" value={`/items/by/userId/${user.id}/0/20/desc`} />
         <Divider />
         <MenuItem primaryText="Help" />
         <MenuItem primaryText="Sign out" value="/logout" />
