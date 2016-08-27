@@ -24,6 +24,30 @@ export function fetchItems() {
   };
 }
 
+export const REQUEST_ITEM = 'REQUEST_ITEM';
+export const RECEIVE_ITEM = 'RECEIVE_ITEM';
+
+function requestItem() {
+  return {
+    type: REQUEST_ITEM
+  };
+}
+
+function receiveItem(item) {
+  return {
+    type: RECEIVE_ITEM,
+    item
+  };
+}
+
+export function fetchItem(itemId) {
+  return dispatch => {
+    dispatch(requestItem());
+    Item.findOne(itemId)
+      .then(item => dispatch(receiveItem(item)));
+  };
+}
+
 export const REQUEST_ITEMS_BY_CATEGORY = 'REQUEST_ITEMS_BY_CATEGORY';
 export const RECEIVE_ITEMS_BY_CATEGORY = 'RECEIVE_ITEMS_BY_CATEGORY';
 
