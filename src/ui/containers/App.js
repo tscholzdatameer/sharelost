@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Menu from '../components/Menu';
+import AppDrawer from '../components/AppDrawer';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 class App extends Component {
@@ -13,6 +14,7 @@ class App extends Component {
       <MuiThemeProvider>
         <div>
           <Menu />
+          <AppDrawer />
           <div className="container-fluid">
             {children}
           </div>

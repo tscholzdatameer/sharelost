@@ -8,16 +8,23 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import FontIcon from 'material-ui/FontIcon';
 import Divider from 'material-ui/Divider';
+import { toggleDrawer } from '../actions';
 
 class MainMenu extends Component {
   constructor(props) {
     super(props);
     this.handleMenuClick = this.handleMenuClick.bind(this);
+    this.toggleDrawer = this.toggleDrawer.bind(this);
   }
 
   handleMenuClick(event, child) {
     const { router } = this.context;
     router.push(child.props.value);
+  }
+
+  toggleDrawer() {
+    const { dispatch } = this.props;
+    dispatch(toggleDrawer());
   }
 
   getLoginMenuEntry() {
@@ -48,11 +55,13 @@ class MainMenu extends Component {
   }
 
   render() {
+    const { authenticated } = this.props;
     return (
       <AppBar
         style={{ 'position': 'fixed' }}
         title="ShareLost"
-        showMenuIconButton={ false }
+        showMenuIconButton={ authenticated }
+        onLeftIconButtonTouchTap={this.toggleDrawer}
         iconElementRight={ this.getLoginMenuEntry() }
       />
     );

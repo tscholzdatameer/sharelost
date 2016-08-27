@@ -117,6 +117,20 @@ function addItemForm(state = { isValid: false, formData: {} }, action) {
     return state;
   }
 }
+
+function drawer(state = { isOpen: false }, action) {
+  switch(action.type) {
+    case ActionTypes.TOGGLE_DRAWER:
+      return Object.assign(
+        {},
+        state,
+        { isOpen: !state.isOpen }
+      );
+    default:
+      return state;
+  }
+}
+
 const rootReducer = combineReducers({
   selectedItem,
   topItems,
@@ -124,6 +138,7 @@ const rootReducer = combineReducers({
   itemsByCategory,
   auth,
   addItemForm,
+  drawer,
   routing
 });
 
