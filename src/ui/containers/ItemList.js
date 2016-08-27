@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import isEqual from 'lodash/isEqual';
-
+import Divider from 'material-ui/Divider';
 import ItemCardSmall from '../components/ItemCardSmall';
 import { fetchItemsByCategory } from '../actions';
 
@@ -13,6 +13,7 @@ class ItemList extends Component {
   constructor(props) {
     super(props);
     this.navigateToDetail = this.navigateToDetail.bind(this);
+    this.getTitle = this.getTitle.bind(this);
   }
 
   componentWillMount() {
@@ -33,11 +34,27 @@ class ItemList extends Component {
     this.context.router.push(`/item/${id}`);
   }
 
+  getTitle() {
+    const { params: { category } } = this.props;
+    switch(category){
+      case 'date':
+        return 'Latest';
+      case 'value':
+        return 'Top';
+      default:
+        return '';
+    }
+  }
+
   render() {
     const { items } = this.props;
     return (
-      <div className="row">
-        { items.map(item => <ItemCardSmall item={item} key={item.id} onShowDetailClick={ this.navigateToDetail }/>) }
+      <div>
+        <h1>{ this.getTitle() }</h1>
+        <Divider />
+        <div className="row" style={{ paddingTop: '40px' }} >
+          { items.map(item => <ItemCardSmall item={item} key={item.id} onShowDetailClick={ this.navigateToDetail }/>) }
+        </div>
       </div>
     );
   }
