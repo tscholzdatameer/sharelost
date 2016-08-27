@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import AppBar from 'material-ui/AppBar';
-import IconButton from 'material-ui/IconButton';
 import FlatButton from 'material-ui/FlatButton';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
@@ -37,7 +36,11 @@ class MainMenu extends Component {
     return (
       <IconMenu
         iconButtonElement={
-          <IconButton><FontIcon className="material-icons">more_vert</FontIcon></IconButton>
+          <FlatButton
+            label={user.get('name')}
+            labelPosition="before"
+            icon={<FontIcon className="material-icons">expand_more</FontIcon>}
+          />
         }
         onItemTouchTap={ this.handleMenuClick }
         targetOrigin={{horizontal: 'right', vertical: 'top'}}
@@ -45,8 +48,6 @@ class MainMenu extends Component {
       >
         <MenuItem primaryText="Add Item" value="/items/add" />
         <MenuItem primaryText="My Items" value={`/items/by/userId/${user.id}/0/20/desc`} />
-        <MenuItem primaryText="Top Items" value="/items/by/value/0/20/desc" />
-        <MenuItem primaryText="Latest Items" value="/items/by/date/0/20/desc" />
         <Divider />
         <MenuItem primaryText="Help" />
         <MenuItem primaryText="Sign out" value="/logout" />
