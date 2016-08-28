@@ -68,9 +68,10 @@ function generateConfig() {
         new HtmlWebpackPlugin({
             'template': path.resolve(ROOT_PATH, 'index.html'),
             'inject': 'body',
-            'minify': PRODUCTION ? false : {}
+            'minify': PRODUCTION ? false : {},
+            'chunksSortMode': 'dependency'
         }),
-        new webpack.optimize.CommonsChunkPlugin('vendor', FILE_NAME_PATTERN),
+        new webpack.optimize.CommonsChunkPlugin({ names: ['vendor', 'manifest'] }),
         new webpack.optimize.DedupePlugin()
     ];
 
@@ -79,7 +80,7 @@ function generateConfig() {
       config.plugins.push(new webpack.optimize.UglifyJsPlugin({
         'comments': false
       }));
-      config.plugins.push(new ExtractTextPlugin('styles.[hash].css'));
+      config.plugins.push(new ExtractTextPlugin('styles.[chunkhash].css'));
       config.plugins.push(new WebpackMd5Hash());
     } else {
       config.plugins.push(new webpack.HotModuleReplacementPlugin());
