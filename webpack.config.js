@@ -2,11 +2,12 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const WebpackMd5Hash = require('webpack-md5-hash');
 const _ = require('lodash');
 
 const PRODUCTION = process.env.NODE_ENV === 'production';
 const ROOT_PATH = path.resolve(__dirname, 'src', 'ui');
-const FILE_NAME_PATTERN = PRODUCTION ? '[name].[hash].js' : '[name].bundle.js';
+const FILE_NAME_PATTERN = PRODUCTION ? '[name].[chunkhash].js' : '[name].bundle.js';
 
 function generateConfig() {
     const config = {
@@ -32,7 +33,7 @@ function generateConfig() {
     config.output = {
         'path': path.resolve(__dirname, 'build', 'ui'),
         'publicPath': PRODUCTION ? '/' : 'http://localhost:8080/',
-        'filename': PRODUCTION ? '[name].[hash].js' : '[name].bundle.js',
+        'filename': FILE_NAME_PATTERN,
         'chunkFilename': FILE_NAME_PATTERN
     };
 
@@ -79,6 +80,7 @@ function generateConfig() {
         'comments': false
       }));
       config.plugins.push(new ExtractTextPlugin('styles.[hash].css'));
+      config.plugins.push(new WebpackMd5Hash());
     } else {
       config.plugins.push(new webpack.HotModuleReplacementPlugin());
     }
