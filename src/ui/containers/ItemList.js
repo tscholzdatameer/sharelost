@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
+import connect from 'react-redux/lib/components/connect';
 import isEqual from 'lodash/isEqual';
 import Divider from 'material-ui/Divider';
 import ItemCardSmall from '../components/ItemCardSmall';

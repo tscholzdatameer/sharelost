@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route } from 'react-router';
+import Route from 'react-router/lib/Route';
 import { isLoggedIn } from './utils';
 import App from './containers/App';
 import Login from './containers/Login';

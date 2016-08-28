@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { Link, withRouter } from 'react-router';
+import connect from 'react-redux/lib/components/connect';
+import Link from 'react-router/lib/Link';
+import withRouter from 'react-router/lib/withRouter';
 import { getToken } from '../actions';
 
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';

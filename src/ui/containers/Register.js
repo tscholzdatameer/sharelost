@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
+import connect from 'react-redux/lib/components/connect';
 import { register } from '../actions';
-import { Link, withRouter } from 'react-router';
+import Link from 'react-router/lib/Link';
+import withRouter from 'react-router/lib/withRouter';
 
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import TextField from 'material-ui/TextField';

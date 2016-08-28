@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import connect from 'react-redux/lib/components/connect';
+import Link from 'react-router/lib/Link';
 import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
 import IconMenu from 'material-ui/IconMenu';

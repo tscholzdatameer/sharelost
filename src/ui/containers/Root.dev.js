@@ -1,8 +1,8 @@
-import React, { Component, PropTypes } from 'react'
-import { Provider } from 'react-redux'
-import routes from '../routes'
-import DevTools from './DevTools'
-import { Router } from 'react-router'
+import React, { Component, PropTypes } from 'react';
+import Provider from 'react-redux/lib/components/Provider';
+import Router from 'react-router/lib/Router';
+import routes from '../routes';
+import DevTools from './DevTools';
 
 export default class Root extends Component {
   render() {

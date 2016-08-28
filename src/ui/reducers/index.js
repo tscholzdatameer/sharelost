@@ -1,6 +1,6 @@
 import * as ActionTypes from '../actions';
-import { routerReducer as routing } from 'react-router-redux';
-import { combineReducers } from 'redux';
+import { routerReducer as routing } from 'react-router-redux/lib/reducer';
+import combineReducers from 'redux/lib/combineReducers';
 
 function auth(state = { token: null, authenticated: false, timestamp: new Date().getTime(), user: {} }, action) {
   switch (action.type) {

@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import connect from 'react-redux/lib/components/connect';
 import Drawer from 'material-ui/Drawer';
 import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';

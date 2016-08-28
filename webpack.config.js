@@ -12,18 +12,20 @@ function generateConfig() {
     const config = {
         'modulesDirectories': 'node_modules'
     };
+
+    config.resolve = {
+      extensions: ['', '.js', '.less']
+    };
+
     config.entry = {
       'app': path.resolve(ROOT_PATH, 'index.js'),
       'vendor': [
         'react',
         'react-dom',
-        'react-redux',
-        'react-router',
-        'react-router-redux',
         'react-tap-event-plugin',
-        'redux',
         'redux-thunk',
-        'spring-data-rest-js'
+        'spring-data-rest-js',
+        'material-ui/styles/MuiThemeProvider'
       ]
     };
 
@@ -41,6 +43,10 @@ function generateConfig() {
             'test': /\.js$/,
             'loaders': PRODUCTION ? ['babel-loader'] : ['react-hot', 'babel-loader'],
             'exclude': /node_modules/
+        },
+        {
+          'test': /\.html$/,
+          'loader': 'html'
         }]
     };
 
@@ -57,20 +63,18 @@ function generateConfig() {
     }
 
     config.plugins = [
-        new webpack.DefinePlugin({
-            'process.env.NODE_ENV': `"${process.env.NODE_ENV}"`
-        }),
+        new webpack.DefinePlugin({'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)}),
         new HtmlWebpackPlugin({
             'template': path.resolve(ROOT_PATH, 'index.html'),
             'inject': 'body',
-            'minify': false
+            'minify': PRODUCTION ? false : {}
         }),
-        new webpack.optimize.CommonsChunkPlugin('vendor', FILE_NAME_PATTERN)
+        new webpack.optimize.CommonsChunkPlugin('vendor', FILE_NAME_PATTERN),
+        new webpack.optimize.DedupePlugin()
     ];
 
     if (PRODUCTION) {
       config.plugins.push(new webpack.optimize.OccurrenceOrderPlugin());
-      config.plugins.push(new webpack.optimize.DedupePlugin());
       config.plugins.push(new webpack.optimize.UglifyJsPlugin({
         'comments': false
       }));
