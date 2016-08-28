@@ -1,5 +1,6 @@
 package org.sharelost.dev.injection;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -68,6 +69,7 @@ public class DatabasePopulator {
 			Double orgPrice = Double.parseDouble(faker.commerce().price());
 			Double willingToPay = Double.parseDouble(faker.commerce().price());
 			Float value = (float) ((willingToPay * 100) / orgPrice);
+			String imagePaths = "https://unsplash.it/320/220?image=" + i; // Should be list of strings
 
 			item.setName(faker.commerce().productName());
 			item.setPublishDate(faker.date().past(50, TimeUnit.DAYS));
@@ -78,6 +80,7 @@ public class DatabasePopulator {
 			item.setValue(value);
 			item.setDescription(faker.lorem().paragraph());
 			item.setCategory(faker.commerce().material());
+			item.setImagePaths(imagePaths);
 			_itemRepository.save(item);
 		}
 		return this;

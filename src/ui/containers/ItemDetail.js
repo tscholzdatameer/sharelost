@@ -26,7 +26,7 @@ class ItemDetail extends Component {
                 return (
                   <div>
                     <h1>{ item.get('name') } </h1>
-                    <img src={ `https://unsplash.it/200/300?image=${item.id}` } />
+                    <img src={ item.get('imagePaths') } />
                   </div>
                 );
               }

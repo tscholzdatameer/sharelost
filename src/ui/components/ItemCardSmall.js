@@ -24,7 +24,7 @@ class ItemCardSmall extends Component {
               title={ 'Value: ' + item.get('value') + '%' }
             />
             <CardMedia overlay={<CardTitle title={item.get('name')} />} style={{ minHeight: '269px' }}>
-              <img src={ `https://unsplash.it/320/220?image=${item.id}`} />
+              <img src={ item.get('imagePaths') } />
             </CardMedia>
             <CardActions>
               <FlatButton label="Show" onTouchTap={() => onShowDetailClick(item.id)} />

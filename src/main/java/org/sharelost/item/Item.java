@@ -54,5 +54,8 @@ public class Item implements Identifiable<Long> {
     
     @Column(name = "_category")
     private String category;
+    
+    @Column(name = "_imagePaths")
+    private String imagePaths;
 
 }
