@@ -42,7 +42,7 @@ function generateConfig() {
     config.module = {
         loaders: [{
             'test': /\.js$/,
-            'loaders': PRODUCTION ? ['babel-loader'] : ['react-hot', 'babel-loader'],
+            'loader': 'babel',
             'exclude': /node_modules/
         },
         {
@@ -89,6 +89,7 @@ function generateConfig() {
         'contentBase': path.resolve(__dirname, 'build', 'ui'),
         'historyApiFallback': true,
         'progress': true,
+        'hot': true,
         'stats': {
             'modules': false,
             'cached': false,
