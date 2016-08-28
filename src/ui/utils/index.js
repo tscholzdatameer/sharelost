@@ -12,7 +12,6 @@ export function doAuth(login/* , pass */) {
       'Token': 'ABS1token2'
     };
     loggedIn = true;
-    sessionStorage.setItem('sharelost', JSON.stringify({ token: 'ABS1token2' }));
     User.search('findByName', { name: login})
       .then(result => resolve({ token: 'ABS1token2', user: result }))
       .catch(error => reject(error));
@@ -20,15 +19,6 @@ export function doAuth(login/* , pass */) {
 }
 
 export function isLoggedIn() {
-  const store = sessionStorage.getItem('sharelost');
-
-  if(store) {
-    const parsedStore = JSON.parse(store);
-    const token = { parsedStore };
-
-    loggedIn = token !== null;
-  }
-
   return loggedIn;
 }
 
