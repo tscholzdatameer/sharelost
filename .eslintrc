@@ -30,12 +30,14 @@
   "env": {
     "browser": true,
     "node": true,
-    "es6": true
+    "es6": true,
+    "mocha": true
   },
   "parser": "babel-eslint",
   "plugins": [
     "babel",
-    "react"
+    "react",
+    "chai-expect"
   ],
   "extends": ["eslint:recommended", "plugin:react/recommended"],
   "rules": {
