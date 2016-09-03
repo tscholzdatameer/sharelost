@@ -5,43 +5,30 @@ export const ITEM_FORM_ERROR = 'ITEM_FORM_ERROR';
 export const ITEM_FORM_SUCCESS = 'ITEM_FORM_SUCCESS';
 
 function validateForm(formData) {
-  return new Promise((resolve, reject) => {
-    const validatedFormData = reduce(formData, (result, element, referenceName) => {
-      const value = element.getValue();
-      const { required } = element.props;
-      result[referenceName] = {
-        value
-      };
+  return reduce(formData, (result, element, referenceName) => {
+    const value = element.getValue();
+    const { required } = element.props;
+    result[referenceName] = {
+      value
+    };
 
-      if(required && value === '') {
-        result[referenceName].errorText = 'Field is required';
-      }
-
-      return result;
-    }, {});
-
-    const fieldsWithError = filter(validatedFormData, 'errorText');
-
-    if (fieldsWithError.length > 0) {
-      reject(validatedFormData);
-    } else {
-      resolve(validatedFormData);
+    if(required && value === '') {
+      result[referenceName].errorText = 'Field is required';
     }
-  });
+
+    return result;
+  }, {});
 }
 
-export function validateAddItemForm(formData) {
+export function validateAddItemForm(orgFormData) {
   return dispatch => {
-    validateForm(formData)
-      .then(
-          (formData) => dispatch({
-            type: ITEM_FORM_SUCCESS,
-            formData
-          }),
-          (formData) => dispatch({
-            type: ITEM_FORM_ERROR,
-            formData
-          })
-      );
+    const formData = validateForm(orgFormData);
+    const hasErrors = filter(formData, 'errorText').length > 0;
+    const type = hasErrors ? ITEM_FORM_ERROR : ITEM_FORM_SUCCESS;
+
+    dispatch({
+      type,
+      formData
+    });
   };
 }
