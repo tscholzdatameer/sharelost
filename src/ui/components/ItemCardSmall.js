@@ -27,7 +27,7 @@ class ItemCardSmall extends Component {
               <img src={ item.get('imagePaths') } />
             </CardMedia>
             <CardActions>
-              <FlatButton label="Show" onTouchTap={() => onShowDetailClick(item.id)} />
+              <FlatButton label="Details" onTouchTap={() => onShowDetailClick(item.id)} />
               <IconButton
                 style={{ float: 'right' }}
                 onTouchTap={ this.toggleExpandReduce }
