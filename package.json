@@ -5,7 +5,7 @@
   "scripts": {
     "prebuild": "rimraf ./build/ui",
     "dev": "NODE_ENV=development webpack-dev-server --config webpack.config.js --inline",
-    "test": "NODE_ENV=test nyc --reporter=html mocha --opts ./src/test/ui/mocha.opts ./src/test/ui",
+    "test": "NODE_ENV=test nyc --reporter=lcov mocha --opts ./src/test/ui/mocha.opts ./src/test/ui",
     "build": "NODE_ENV=production webpack --config webpack.config.js"
   },
   "nyc": {

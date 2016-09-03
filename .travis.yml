@@ -1,3 +1,12 @@
+sudo: false
 language: java
 jdk:
   - oraclejdk8
+before_script:
+  - nvm install v5.3
+  - npm install
+script:
+  - ./gradlew check
+  - npm test
+after_script:
+  - nyc report

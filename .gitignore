@@ -1,6 +1,7 @@
 **/bin
 **/build
 **/coverage
+.nyc_output
 .gradle
 .project
 .classpath
