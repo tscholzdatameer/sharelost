@@ -2,7 +2,9 @@
 
 This application is based on
 * gradle
-* spring boot
+* spark
+* 
+* hibernate
 * react
 * webpack
 
@@ -10,14 +12,13 @@ This application is intended to be a SPA.
 
 
 * setup and compile application by
-./gradlew clean eclipse build
+./gradlew clean eclipse build startSpark
 
 * start application by
 java -jar build/libs/sharelost-0.1.0.jar
 
 * use application by
-http://localhost:8083/
-http://localhost:8083/users/
+http://localhost:4567/hello
 
 
 * setup UI
@@ -27,7 +28,7 @@ http://localhost:8083/users/
 `npm run dev`
 
 * use application
-`http://localhost:8080`
+`http://localhost:4567`
 
 * development login
 `admin : admin`
@@ -38,29 +39,8 @@ Information of Engineers
 http://localhost:8083/env/
 http://localhost:8083/autoconfig/
 
-* review DB schema
-http://localhost:8083/profile/users
-
-* review JSON HAL
-http://localhost:8083/browser/
--> in text field explorer enter e.g., /users and click Go!
-
-* query database:
-http://localhost:8083/users/search/findByName?name=Daniel
-http://localhost:8083/users/search/findByName?name=Jörg
-http://localhost:8083/users/search/existsAtAll
-
-* query database with paging & sorting
-http://localhost:8083/users?page=1&size=2
-http://localhost:8083/users?page=2&size=2&sort=name,asc
-http://localhost:8083/users?page=2&size=2&sort=name,desc
-
 
 * review database entries
 http://localhost:8083/h2/
 -> change JDBC URL to: jdbc:h2:file:./build/sharelost;MODE=MySQL;DB_CLOSE_DELAY=-1
 -> remove the user name 'sa'
-
-
-* review runtime metrics
-http://localhost:8083/metrics/
