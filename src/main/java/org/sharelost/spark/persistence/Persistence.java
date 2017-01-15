@@ -10,13 +10,13 @@ public class Persistence {
 
 	private static Persistence _instance;
 
-	private SessionFactory sessionFactory;
+	private SessionFactory _sessionFactory;
 
 	private Persistence() {
 		final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure()
 				.build();
 		try {
-			sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
+			_sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
 		} catch (Exception e) {
 			StandardServiceRegistryBuilder.destroy(registry);
 			throw new RuntimeException(e);
@@ -31,12 +31,12 @@ public class Persistence {
 	}
 
 	public SessionFactory getSessionFactory() {
-		return sessionFactory;
+		return _sessionFactory;
 	}
 
 	public void close() {
-		if (sessionFactory != null) {
-			sessionFactory.close();
+		if (_sessionFactory != null) {
+			_sessionFactory.close();
 		}
 	}
 
