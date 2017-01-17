@@ -1,6 +1,7 @@
 package org.sharelost.spark.persistence.users;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -14,7 +15,13 @@ public class UserRepository {
 	private SessionFactory _sessionFactory;
 
 	public UserRepository() {
-		_sessionFactory = Persistence.getInstance().getSessionFactory();
+	}
+
+	public SessionFactory getOrCreateSessionFactory() {
+		if (_sessionFactory == null) {
+			_sessionFactory = Persistence.getInstance().getSessionFactory();
+		}
+		return _sessionFactory;
 	}
 
 	public SessionFactory getSessionFactory() {
@@ -25,22 +32,22 @@ public class UserRepository {
 		_sessionFactory = sessionFactory;
 	}
 
-	public  User findUser(String name) {
-		SessionFactory sessionFactory = getSessionFactory();
+	public Optional<User> findUserByName(String name) {
+		SessionFactory sessionFactory = getOrCreateSessionFactory();
 		Criteria criteria = sessionFactory.openStatelessSession().createCriteria(User.class);
 		criteria.add(Restrictions.eq("_name", name));
-		return (User) criteria.uniqueResult();
+		return Optional.<User>of((User) criteria.uniqueResult());
 	}
 
 	public void saveUser(User user) {
-		Session session = getSessionFactory().openSession();
+		Session session = getOrCreateSessionFactory().openSession();
 		session.beginTransaction();
 		session.save(user);
 		session.getTransaction().commit();
 	}
 
 	public  List<User> findAllUsers() {
-		SessionFactory sessionFactory = getSessionFactory();
+		SessionFactory sessionFactory = getOrCreateSessionFactory();
 		StatelessSession openStatelessSession = sessionFactory.openStatelessSession();
 		Criteria criteria = openStatelessSession.createCriteria(User.class);
 		return (List<User>) criteria.list();

@@ -5,7 +5,7 @@ public class UserController {
 	private static UserRepository _userRepository = new UserRepository();
 
 	public static Object showUsers() {
-		return _userRepository.findUser("gustav");
+		return _userRepository.findUserByName("gustav");
 	}
 
 	public static Object allUsers() {

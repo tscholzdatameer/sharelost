@@ -12,7 +12,13 @@ public class ItemRepository {
 	private SessionFactory _sessionFactory;
 
 	public ItemRepository() {
-		_sessionFactory = Persistence.getInstance().getSessionFactory();
+	}
+
+	public SessionFactory getOrCreateSessionFactory() {
+		if (_sessionFactory == null) {
+			_sessionFactory = Persistence.getInstance().getSessionFactory();
+		}
+		return _sessionFactory;
 	}
 
 	public SessionFactory getSessionFactory() {
@@ -24,14 +30,14 @@ public class ItemRepository {
 	}
 
 	public void save(Item item) {
-		Session session = getSessionFactory().openSession();
+		Session session = getOrCreateSessionFactory().openSession();
 		session.beginTransaction();
 		session.save(item);
 		session.getTransaction().commit();
 	}
 
 	public List<Item> findAllItems() {
-		SessionFactory sessionFactory = getSessionFactory();
+		SessionFactory sessionFactory = getOrCreateSessionFactory();
 		Criteria criteria = sessionFactory.openStatelessSession().createCriteria(Item.class);
 		return (List<Item>) criteria.list();
 	}
