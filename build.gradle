@@ -27,6 +27,7 @@ dependencies {
     compile 'mysql:mysql-connector-java:6.0.5'
     compile 'com.fasterxml.jackson.core:jackson-core:2.5.1'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.5.1'
+    compile 'org.mindrot:jbcrypt:0.3m'
     // Test APIs
     testCompile("junit:junit:4.+")
     testCompile("org.assertj:assertj-core:1.7.0")
