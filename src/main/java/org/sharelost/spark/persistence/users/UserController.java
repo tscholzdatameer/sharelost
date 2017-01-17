@@ -8,6 +8,10 @@ public class UserController {
 
 	private static UserRepository _userRepository = new UserRepository();
 
+	static {
+		_userRepository.getOrCreateSessionFactory();
+	}
+
 	public static Object showUsers() {
 		return _userRepository.findUserByName("gustav");
 	}

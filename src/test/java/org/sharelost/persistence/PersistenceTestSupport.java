@@ -32,13 +32,14 @@ public class PersistenceTestSupport {
 		getSessionFactory().close();
 	}
 
-	public static void deleteAllUsers() {
+	public static int deleteAllUsers() {
 		Session session = getSessionFactory().openSession();
 		String stringQuery = "DELETE FROM User";
 		Transaction transaction = session.beginTransaction();
 		Query query = session.createQuery(stringQuery);
-		query.executeUpdate();
+		int result = query.executeUpdate();
 		transaction.commit();
+		return result;
 	}
 
 	public static void deleteAllItems() {

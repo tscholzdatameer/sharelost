@@ -52,4 +52,5 @@ public class UserRepository {
 		Criteria criteria = openStatelessSession.createCriteria(User.class);
 		return (List<User>) criteria.list();
 	}
+
 }

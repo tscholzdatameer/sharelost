@@ -18,6 +18,7 @@ public class UserRepositoryTest {
 
 	private static SessionFactory factory;
 	private static Session hibernateSession;
+	private static UserRepository _userRepository;
 
 	@BeforeClass
 	public static void init() {
@@ -27,21 +28,22 @@ public class UserRepositoryTest {
 	@Before
 	public void beforeTest() {
 		hibernateSession = factory.openSession();
+		_userRepository = new UserRepository();
+		_userRepository.setSessionFactory(factory);
 	}
 
 	@After
 	public void afterTest() {
+		PersistenceTestSupport.deleteAllUsers();
 		hibernateSession.close();
 	}
 
 	@Test
 	public void testFindAllUsers() {
-		UserRepository userRepository = new UserRepository();
-		userRepository.setSessionFactory(factory);
-		userRepository.saveUser(new User("Gustav", "secretPwd"));
-		userRepository.saveUser(new User("Donald", "otherSecred"));
+		_userRepository.saveUser(new User("Gustav", "secretPwd"));
+		_userRepository.saveUser(new User("Donald", "otherSecred"));
 
-		List<User> allUsers = userRepository.findAllUsers();
+		List<User> allUsers = _userRepository.findAllUsers();
 		assertThat(allUsers.get(0)._name).isEqualTo("Gustav");
 		assertThat(allUsers.get(0)._hashedPassword).isEqualTo("secretPwd");
 		assertThat(allUsers.get(1)._name).isEqualTo("Donald");

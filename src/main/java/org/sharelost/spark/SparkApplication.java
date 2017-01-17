@@ -5,6 +5,7 @@ import static spark.debug.DebugScreen.enableDebugScreen;
 import org.sharelost.indexPage.IndexController;
 import org.sharelost.indexPage.LoginController;
 import org.sharelost.spark.persistence.Injector;
+import org.sharelost.spark.persistence.Persistence;
 import org.sharelost.spark.persistence.users.UserController;
 import org.sharelost.spark.util.Filters;
 import org.sharelost.spark.util.JsonUtil;
@@ -20,7 +21,7 @@ public class SparkApplication {
 
 		configureWebFrameworkSpark();
 
-		Injector.injectUsers();
+		Injector.injectUsers(Persistence.getInstance().getSessionFactory());
 
 		get(RoutePath.INDEX, IndexController.serveIndexPage);
 
