@@ -43,9 +43,9 @@ public class UserRepositoryTest {
 
 		List<User> allUsers = userRepository.findAllUsers();
 		assertThat(allUsers.get(0)._name).isEqualTo("Gustav");
-		assertThat(allUsers.get(0)._password).isEqualTo("secretPwd");
+		assertThat(allUsers.get(0)._hashedPassword).isEqualTo("secretPwd");
 		assertThat(allUsers.get(1)._name).isEqualTo("Donald");
-		assertThat(allUsers.get(1)._password).isEqualTo("otherSecred");
+		assertThat(allUsers.get(1)._hashedPassword).isEqualTo("otherSecred");
 	}
 
 }

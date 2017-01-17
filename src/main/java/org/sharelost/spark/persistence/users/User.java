@@ -1,5 +1,7 @@
 package org.sharelost.spark.persistence.users;
 
+import java.util.UUID;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,14 +18,18 @@ public class User {
 	@Column(name = "name")
 	public String _name;
 	@Column(name = "password")
-	public String _password;
+	public String _hashedPassword;
+
+	@Column(name = "salt")
+	public String _salt;
 
 	public User() {
+		_salt = UUID.randomUUID().toString();
 	}
 
-	public User(String name, String password) {
+	public User(String name, String hashedPassword) {
 		_name = name;
-		_password = password;
+		_hashedPassword = hashedPassword;
 	}
 
 	public Long getId() {
@@ -34,8 +40,8 @@ public class User {
 		return _name;
 	}
 
-	public String getPassword() {
-		return _password;
+	public String getHashedPassword() {
+		return _hashedPassword;
 	}
 
 	public void setId(Long id) {
@@ -46,8 +52,16 @@ public class User {
 		_name = name;
 	}
 
-	public void setPassword(String password) {
-		_password = password;
+	public void setHashedPassword(String hashedPassword) {
+		_hashedPassword = hashedPassword;
+	}
+
+	public String getSalt() {
+		return _salt;
+	}
+
+	public void setSalt(String salt) {
+		_salt = salt;
 	}
 
 	@Override
@@ -61,7 +75,6 @@ public class User {
 		int result = 1;
 		result = prime * result + ((_id == null) ? 0 : _id.hashCode());
 		result = prime * result + ((_name == null) ? 0 : _name.hashCode());
-		result = prime * result + ((_password == null) ? 0 : _password.hashCode());
 		return result;
 	}
 
@@ -83,11 +96,6 @@ public class User {
 			if (other._name != null)
 				return false;
 		} else if (!_name.equals(other._name))
-			return false;
-		if (_password == null) {
-			if (other._password != null)
-				return false;
-		} else if (!_password.equals(other._password))
 			return false;
 		return true;
 	}
