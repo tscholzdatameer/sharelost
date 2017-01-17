@@ -11,7 +11,7 @@ public class Injector {
 		Session session = Persistence.getInstance().getSessionFactory().openSession();
 		if (((Long) session.createQuery(COUNT_USERS).iterate().next()).longValue() == 0L) {
 			session.beginTransaction();
-			session.save(new User(1L, "gustav", "ganz"));
+			session.save(new User("gustav", "ganz"));
 			session.getTransaction().commit();
 		}
 		session.close();

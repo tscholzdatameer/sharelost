@@ -32,9 +32,10 @@
         <property name="show_sql">true</property>
 
         <!-- Drop and re-create the database schema on startup -->
-        <property name="hbm2ddl.auto">update</property>
+        <property name="hbm2ddl.auto">create</property>
 
 		<mapping class="org.sharelost.spark.persistence.users.User"></mapping>
+		<mapping class="org.sharelost.spark.persistence.items.Item"></mapping>
     </session-factory>
 
 </hibernate-configuration>

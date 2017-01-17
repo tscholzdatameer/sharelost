@@ -24,10 +24,12 @@ dependencies {
     compile 'org.hibernate:hibernate-core:5.2.6.Final'
     compile 'dom4j:dom4j:1.6.1'
     compile 'mysql:mysql-connector-java:6.0.5'
-    
+    compile 'com.fasterxml.jackson.core:jackson-core:2.5.1'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.5.1'
     // Test APIs
     testCompile("junit:junit:4.+")
     testCompile("org.assertj:assertj-core:1.7.0")
+    testCompile('org.hsqldb:hsqldb:2.3.4')
 }
 
 task wrapper(type: Wrapper) {
