@@ -3,7 +3,7 @@
 This application is based on
 * gradle
 * spark
-* 
+* jBCrypt
 * hibernate
 * react
 * webpack
@@ -14,8 +14,8 @@ This application is intended to be a SPA.
 * setup and compile application by
 ./gradlew clean eclipse build startSpark
 
-* start application by
-java -jar build/libs/sharelost-0.1.0.jar
+* start application by ( ensure mysql server is running )
+./gradlew clean startSpark
 
 * use application by
 http://localhost:4567/hello
