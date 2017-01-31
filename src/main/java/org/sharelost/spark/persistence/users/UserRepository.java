@@ -8,35 +8,18 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.StatelessSession;
 import org.hibernate.criterion.Restrictions;
-import org.sharelost.spark.persistence.Persistence;
+import org.sharelost.spark.persistence.Repository;
 
-public class UserRepository {
-
-	private SessionFactory _sessionFactory;
+public class UserRepository extends Repository {
 
 	public UserRepository() {
-	}
-
-	public SessionFactory getOrCreateSessionFactory() {
-		if (_sessionFactory == null) {
-			_sessionFactory = Persistence.getInstance().getSessionFactory();
-		}
-		return _sessionFactory;
-	}
-
-	public SessionFactory getSessionFactory() {
-		return _sessionFactory;
-	}
-
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		_sessionFactory = sessionFactory;
 	}
 
 	public Optional<User> findUserByName(String name) {
 		SessionFactory sessionFactory = getOrCreateSessionFactory();
 		Criteria criteria = sessionFactory.openStatelessSession().createCriteria(User.class);
 		criteria.add(Restrictions.eq("_name", name));
-		return Optional.<User>of((User) criteria.uniqueResult());
+		return Optional.<User>ofNullable((User) criteria.uniqueResult());
 	}
 
 	public void saveUser(User user) {

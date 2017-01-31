@@ -50,4 +50,15 @@ public class UserRepositoryTest {
 		assertThat(allUsers.get(1)._hashedPassword).isEqualTo("otherSecred");
 	}
 
+	@Test
+	public void testFindUserByName() {
+		_userRepository.saveUser(new User("Gustav", "secretPwd"));
+
+		User user = _userRepository.findUserByName("Gustav").get();
+		assertThat(user.getName()).isEqualTo("Gustav");
+		assertThat(user.getHashedPassword()).isEqualTo("secretPwd");
+
+		assertThat(_userRepository.findUserByName("someNotExistingUser").isPresent()).isFalse();
+	}
+
 }

@@ -5,28 +5,11 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.sharelost.spark.persistence.Persistence;
+import org.sharelost.spark.persistence.Repository;
 
-public class ItemRepository {
-
-	private SessionFactory _sessionFactory;
+public class ItemRepository extends Repository {
 
 	public ItemRepository() {
-	}
-
-	public SessionFactory getOrCreateSessionFactory() {
-		if (_sessionFactory == null) {
-			_sessionFactory = Persistence.getInstance().getSessionFactory();
-		}
-		return _sessionFactory;
-	}
-
-	public SessionFactory getSessionFactory() {
-		return _sessionFactory;
-	}
-
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		_sessionFactory = sessionFactory;
 	}
 
 	public void save(Item item) {
